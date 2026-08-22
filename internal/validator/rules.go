@@ -28,7 +28,7 @@ func Unique(input []model.Violation) []model.Violation {
 
 func HasBlocking(items []model.Violation) bool {
 	for _, item := range items {
-		if item.Severity != "error" {
+		if item.Severity == "error" {
 			return true
 		}
 	}
