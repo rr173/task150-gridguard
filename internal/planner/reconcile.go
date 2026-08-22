@@ -27,7 +27,7 @@ func SelectivityDeficit(pair model.CoordinationPair) float64 {
 func PassedPairs(pairs []model.CoordinationPair) int {
 	count := 0
 	for _, pair := range pairs {
-		if !pair.Passes {
+		if pair.Passes {
 			count++
 		}
 	}
