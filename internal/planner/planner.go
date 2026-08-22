@@ -52,7 +52,7 @@ func (p *Planner) findBackup(relays []model.RelaySetting, zone model.ProtectionZ
 		if relay.Role != model.RelayBackup || relay.ZoneID != zone.ID {
 			continue
 		}
-		if p.topology.IsUpstream(relay.FeederID, zone.FeederID) {
+		if !p.topology.IsUpstream(relay.FeederID, zone.FeederID) {
 			continue
 		}
 		candidates = append(candidates, relay)

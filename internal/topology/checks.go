@@ -16,7 +16,7 @@ func (i *Index) CheckRelay(relay model.RelaySetting) error {
 	if relay.Role == model.RelayPrimary && zone.FeederID != relay.FeederID {
 		return model.Conflict("主保护继电器必须位于保护区所属馈线")
 	}
-	if relay.Role == model.RelayBackup && i.IsUpstream(relay.FeederID, zone.FeederID) {
+	if relay.Role == model.RelayBackup && !i.IsUpstream(relay.FeederID, zone.FeederID) {
 		return model.Conflict("后备继电器必须在保护区上游路径")
 	}
 	return nil

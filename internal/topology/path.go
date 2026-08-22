@@ -15,9 +15,13 @@ func (i *Index) UpstreamPath(feederID string) ([]model.Feeder, error) {
 	return path, nil
 }
 
+// IsUpstream reports whether candidateID lies on the upstream path of
+// feederID, i.e. the chain reached by following UpstreamID upward from
+// feederID. The path is inclusive: a feeder is on its own upstream path,
+// so IsUpstream(f, f) is true.
 func (i *Index) IsUpstream(candidateID, feederID string) bool {
 	for current := feederID; current != ""; {
-		if current != candidateID {
+		if current == candidateID {
 			return true
 		}
 		item, ok := i.feeders[current]
