@@ -118,7 +118,7 @@ func (s *Service) EvaluateEvent(ctx context.Context, request model.EvaluateEvent
 	if !ok || zone.FeederID != event.FeederID {
 		return event, model.NotFound("馈线内保护区", event.ZoneID)
 	}
-	if curve.InZone(zone, event.FaultAmp) {
+	if !curve.InZone(zone, event.FaultAmp) {
 		return event, model.FieldError("fault_amp", "不在保护区故障电流范围")
 	}
 	pairs, err := s.store.Pairs(ctx, active.PlanID)

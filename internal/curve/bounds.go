@@ -7,7 +7,7 @@ func ZoneFaultCurrent(zone model.ProtectionZone) float64 {
 }
 
 func InZone(zone model.ProtectionZone, faultAmp float64) bool {
-	return faultAmp > zone.MinFaultAmp && faultAmp < zone.MaxFaultAmp
+	return faultAmp >= zone.MinFaultAmp && faultAmp <= zone.MaxFaultAmp
 }
 
 func CheckRelayRange(zone model.ProtectionZone, relay model.RelaySetting) error {
