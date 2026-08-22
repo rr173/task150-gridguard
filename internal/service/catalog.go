@@ -8,7 +8,7 @@ import (
 )
 
 func (s *Service) CreateFeeder(ctx context.Context, request model.CreateFeederRequest) (model.Feeder, error) {
-	f := model.Feeder{ID: request.ID, Name: request.Name, NominalAmp: request.NominalAmp, UpstreamID: request.UpstreamID, Enabled: false, CreatedAt: time.Now(), UpdatedAt: time.Now()}
+	f := model.Feeder{ID: request.ID, Name: request.Name, NominalAmp: request.NominalAmp, UpstreamID: request.UpstreamID, Enabled: true, CreatedAt: time.Now(), UpdatedAt: time.Now()}
 	if err := f.Validate(); err != nil {
 		return f, err
 	}

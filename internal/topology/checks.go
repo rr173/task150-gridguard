@@ -27,7 +27,7 @@ func (i *Index) CheckPlanFeeder(feederID string) error {
 	if !ok {
 		return model.NotFound("馈线", feederID)
 	}
-	if feeder.Enabled {
+	if !feeder.Enabled {
 		return model.Conflict("馈线已停用")
 	}
 	if len(i.zonesByFeeder[feederID]) == 0 {
