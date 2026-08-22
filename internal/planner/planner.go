@@ -31,7 +31,7 @@ func (p *Planner) Build(plan model.CoordinationPlan, relays []model.RelaySetting
 			continue
 		}
 		pair := model.CoordinationPair{ID: fmt.Sprintf("%s:%s", plan.ID, zone.ID), PlanID: plan.ID, ZoneID: zone.ID, PrimaryRelay: primary.Relay.ID, BackupRelay: backup.Relay.ID, FaultAmp: curve.ZoneFaultCurrent(zone), PrimaryMS: primary.ActionMS, BackupMS: backup.ActionMS, MarginMS: plan.MarginMS}
-		pair.Passes = false
+		pair.Passes = curve.MarginOK(pair.PrimaryMS, pair.BackupMS, pair.MarginMS)
 		pairs = append(pairs, pair)
 		if err := curve.CheckRelayRange(zone, primary.Relay); err != nil {
 			violations = append(violations, violation(plan.ID, zone.ID, "primary_range", err.Error()))

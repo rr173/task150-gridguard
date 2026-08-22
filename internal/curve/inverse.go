@@ -19,11 +19,13 @@ func InverseTimeMS(relay model.RelaySetting, faultAmp float64) (float64, error) 
 	if denominator <= 0 {
 		return 0, model.FieldError("fault_amp", "无法计算反时限曲线")
 	}
-	seconds := relay.TimeDial * 0.14 / denominator
-	if math.IsInf(seconds, 0) || math.IsNaN(seconds) {
+	// IEC 反时限曲线 t = TDS * 0.14 / (M^0.02 - 1) 的结果单位为秒，
+	// 需换算为毫秒以与瞬时动作时间、选择性裕度等保持同一单位。
+	milliseconds := relay.TimeDial * 0.14 / denominator * 1000
+	if math.IsInf(milliseconds, 0) || math.IsNaN(milliseconds) {
 		return 0, model.FieldError("relay", "反时限曲线结果无效")
 	}
-	return seconds, nil
+	return milliseconds, nil
 }
 
 func OperateMS(relay model.RelaySetting, faultAmp float64) (float64, error) {
