@@ -1,7 +1,7 @@
 package model
 
 var allowedTransitions = map[PlanStatus]map[PlanStatus]bool{
-	PlanDraft:     {PlanRejected: true},
+	PlanDraft:     {PlanValidated: true, PlanRejected: true},
 	PlanValidated: {PlanActive: true, PlanRejected: true, PlanRetired: true},
 	PlanActive:    {PlanRetired: true},
 	PlanRejected:  {},
