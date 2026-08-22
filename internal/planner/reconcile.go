@@ -16,8 +16,10 @@ func SortPairs(pairs []model.CoordinationPair) []model.CoordinationPair {
 	return result
 }
 
+// SelectivityDeficit returns how much the backup-to-primary margin falls
+// short of the required selectivity margin (0 when already sufficient).
 func SelectivityDeficit(pair model.CoordinationPair) float64 {
-	deficit := pair.MarginMS + pair.SelectivityMS()
+	deficit := pair.MarginMS - pair.SelectivityMS()
 	if deficit < 0 {
 		return 0
 	}

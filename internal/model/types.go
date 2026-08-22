@@ -149,7 +149,11 @@ type CoordinationPair struct {
 	Passes       bool    `json:"passes"`
 }
 
-func (p CoordinationPair) SelectivityMS() float64 { return p.PrimaryMS - p.BackupMS }
+// SelectivityMS returns the coordination margin between backup and primary.
+// Backup must operate later than primary, so the margin is BackupMS - PrimaryMS
+// (positive when backup is correctly slower; this is the selectivity time
+// available before the backup trips).
+func (p CoordinationPair) SelectivityMS() float64 { return p.BackupMS - p.PrimaryMS }
 
 type Violation struct {
 	ID        string    `json:"id"`

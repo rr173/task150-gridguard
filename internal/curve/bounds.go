@@ -20,6 +20,9 @@ func CheckRelayRange(zone model.ProtectionZone, relay model.RelaySetting) error 
 	return nil
 }
 
-func MarginOK(primaryMS, backupMS, requiredMS float64) bool { return primaryMS-backupMS >= requiredMS }
+// MarginOK reports whether backup operation leaves at least the required
+// selectivity margin after the primary. Since backup trips later, the margin
+// is backup minus primary.
+func MarginOK(primaryMS, backupMS, requiredMS float64) bool { return backupMS-primaryMS >= requiredMS }
 
 func RequiredBackupMS(primaryMS, marginMS float64) float64 { return primaryMS + marginMS }
