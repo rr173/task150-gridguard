@@ -20,7 +20,7 @@ GOTOOLCHAIN=local go run ./cmd/gridguard --smoke-test --db :memory:
 chmod +x build_benzhi_docker.sh
 ./build_benzhi_docker.sh gridguard:amd64 linux/amd64
 ./build_benzhi_docker.sh gridguard:arm64 linux/arm64
-docker run --rm gridguard:amd64 go run ./cmd/gridguard --smoke-test --db :memory:
+docker run --rm gridguard:amd64 --smoke-test --db :memory:
 ```
 
-构建脚本的第一个参数是镜像名，第二个参数是平台。镜像进入 bash，便于评测环境执行构建、测试和 smoke-test；项目无需外部数据库或其他服务。
+构建脚本的第一个参数是镜像名，第二个参数是平台。镜像默认进入 bash；传入 `--smoke-test` 时会启动项目自检。项目无需外部数据库或其他服务。
